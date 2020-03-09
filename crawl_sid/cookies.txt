@@ -1,0 +1,2 @@
+#LWP-Cookies-2.0
+Set-Cookie3: JSESSIONID=D431DD516C4C294644C251D2B1C385F1; path="/fort"; domain="10.12.115.240"; path_spec; secure; discard; HttpOnly=None; version=0
