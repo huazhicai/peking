@@ -72,7 +72,10 @@ class XueTouData(object):
             row = self.cursor.fetchone()
         return out_data
 
-    def main(self, pid):
+    def get_ybzl(self):
+        return
+
+    def start(self, pid):
         ybzl = self.get_data(ybzl_sql.format(pid), ybzl_keys)
         self.convert_gender(ybzl, sex_key)  # 性别转化为数字
 
@@ -121,4 +124,4 @@ if __name__ == '__main__':
     connect = pymssql.connect(host=host, port=port, user=user, password=password,
                               database=database, charset=charset)
     instance = XueTouData(connect)
-    instance.main('pid')
+    instance.start('pid')

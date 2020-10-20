@@ -1,8 +1,12 @@
 # -*- coding: utf-8 -*-
+import random
 import re
 
 import requests
 from lxml import etree
+from config.base_config import user_agent
+
+headers = {'User-Agent': random.choice(user_agent)}
 
 
 class YihuiSystem(object):
@@ -155,7 +159,7 @@ class YihuiSystem(object):
         blh_arry = etree.HTML(resp.text).xpath('//return/id/text()')
         return blh_arry
 
-    def __call__(self, args, io):
+    def start(self, args):
         name = args['Name']
         blh = args['Binglihao']
 
@@ -170,5 +174,8 @@ class YihuiSystem(object):
             result = [self.get_data(blh)]
 
         result = [i for i in result if i]
-        io.set_output('Array', result)
-        io.push_event('Out')
+        return result
+
+
+if __name__ == '__main__':
+    pass

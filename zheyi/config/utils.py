@@ -3,6 +3,24 @@ from pypinyin import lazy_pinyin
 from openpyxl import load_workbook
 
 
+def quchong(array):
+    seen = set()
+    new_array = []
+    for a in array:
+        temp = tuple(a.items())
+        if temp not in seen:
+            seen.add(temp)
+            new_array.append(a)
+    return new_array
+
+
+def capital_to_lower(doc):
+    new = {}
+    for key, value in doc.items():
+        new[key.lower()] = value
+    return new
+
+
 def read_one_column(sheet, col_num):
     data = [cell.value for cell in sheet[col_num] if cell.value]
     data.pop(0)  # 去除列头

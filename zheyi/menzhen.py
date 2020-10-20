@@ -1,3 +1,7 @@
+from config.base_config import outpatient_system_code
+from config.utils import capital_to_lower, quchong
+
+
 class MenZhenData(object):
 
     def __call__(self, args, io):
@@ -37,7 +41,7 @@ class MenZhenDetail(object):
                     60205: item['yongyaopinlv'],
                     60204: item['yongfa'],
                     60208: item['tingzhishijian'],
-                    60209: 2,  # 数据来源
+                    60209: outpatient_system_code,  # 数据来源
                 })
             elif item:
                 zhenji.append({
@@ -48,27 +52,9 @@ class MenZhenDetail(object):
                     60305: item['yongyaopinlv'],
                     60304: item['yongfa'],
                     60308: item['tingzhishijian'],
-                    60309: 2,  # 数据来源
+                    60309: outpatient_system_code,  # 数据来源
                 })
         return koufu, zhenji
-
-    @classmethod
-    def quchong(self, array):
-        seen = set()
-        new_array = []
-        for a in array:
-            temp = tuple(a.items())
-            if temp not in seen:
-                seen.add(temp)
-                new_array.append(a)
-        return new_array
-
-    @classmethod
-    def capital_to_lower(self, doc):
-        new = {}
-        for key, value in doc.items():
-            new[key.lower()] = value
-        return new
 
     def fetch(self, sql):
         import subprocess, os
@@ -82,7 +68,7 @@ class MenZhenDetail(object):
         p = subprocess.Popen(cmd, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
         stdout, stderr = p.communicate()
         output = eval(str(stdout, encoding="GB18030"))
-        output = [self.capital_to_lower(i) for i in output]
+        output = [capital_to_lower(i) for i in output]
         return output
 
     def replace_key(self, array):
@@ -95,7 +81,7 @@ class MenZhenDetail(object):
             })
         return new_array
 
-    def __call__(self, args, io):
+    def start(self, args, io):
         input_array = args['input_array']
 
         zd_sql = '''select ZJ_BL_ZD.ZDMC as zhenduanmingcheng, JZRQ as zhenduanriqi
@@ -121,10 +107,14 @@ class MenZhenDetail(object):
         zdjl = self.replace_key(zdjl)
 
         # 是否要去掉时间戳，去重呢
-        result = self.quchong(yyjl)
+        result = quchong(yyjl)
         koufu, zhenji = self.split_yongyaojilu(result)
 
         io.set_output('zhenduanjilu', zdjl)
         io.set_output('koufuyao', koufu)
         io.set_output('zhenjiyao', zhenji)
         io.push_event('Out')
+
+
+if __name__ == '__main__':
+    pass

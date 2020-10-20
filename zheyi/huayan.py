@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
+import random
 import re
 
 import requests
+from config.base_config import user_agent
+
+headers = {'User-Agent': random.choice(user_agent)}
 
 
 class HuayanData(object):
@@ -9,7 +13,7 @@ class HuayanData(object):
         self.host = 'http://192.168.50.217:8088'
 
     def get_requeest(self, url):
-        resp = requests.get(url)
+        resp = requests.get(url, headers=headers)
         return resp.json()
 
     def split_href(self, raw):
@@ -110,7 +114,7 @@ class HuayanData(object):
             })
         return ztdbbhd_s
 
-    def main(self, patient_id):
+    def start(self, patient_id):
         result = {
             'ktv': self.get_ktv(patient_id),
             'urr': self.get_urr(patient_id),
@@ -118,3 +122,8 @@ class HuayanData(object):
             'ztdbbhd': self.get_ztdbbhd(patient_id),
         }
         return result
+
+
+if __name__ == '__main__':
+    instance = HuayanData()
+    instance.start('pid')

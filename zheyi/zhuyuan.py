@@ -61,7 +61,6 @@ class HisSystem(object):
             temp = self.chaxun_request(key, start_year)
             index_ids.extend(temp)
             start_year += 1
-        # print(index_ids)
         return index_ids
 
     def binganshouye(self, idx, blh):
@@ -289,7 +288,6 @@ class HisSystem(object):
             50404: p('lblBcbg'),
             50401: p('LB_Reportdt'),
         }
-        # print(result)
         return result
 
     def chaxun_sz_blbg(self, blh):
@@ -431,7 +429,7 @@ class HisSystem(object):
             }
             return result
 
-    def __call__(self, args, io):
+    def start(self, args, io):
         self.login()
         # name = '冯惠珍'
         # blh = '02217244'
@@ -453,3 +451,7 @@ class HisSystem(object):
         result = [i for i in result if i]
         io.set_output('Array', result)
         io.push_event('Out')
+
+
+if __name__ == '__main__':
+    pass
