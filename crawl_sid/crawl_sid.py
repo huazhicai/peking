@@ -1,6 +1,6 @@
 from sz_sid import ShenZhenSid
 from bd_sid import BeiDaSid
-from config import BD_SERVER_IP, SZ_SERVER_IP
+from config.xue_config import BD_SERVER_IP, SZ_SERVER_IP
 
 
 class CrawlSid(object):

@@ -9,7 +9,7 @@ import hmac, base64, struct, hashlib, time
 import win32api
 import warnings
 
-from config import BD_BL_PASSWD, BD_BL_USER, BD_FORT_IP, BD_HOST, \
+from config.xue_config import BD_BL_PASSWD, BD_BL_USER, BD_FORT_IP, BD_HOST, \
     BD_SERVER_PASSWD, BD_SERVER_USER, OPT_KEY
 
 warnings.filterwarnings("ignore")

@@ -6,7 +6,7 @@ from http import cookiejar
 from chaojiying import Chaojiying_Client
 from shenzhen_cracker.PwdDecoder import decode_pwd
 
-from config import SZ_BL_USER, SZ_HOST, SZ_BL_PASSWD, SERVER_USER, SERVER_ACCOUNT
+from config.xue_config import SZ_BL_USER, SZ_HOST, SZ_BL_PASSWD, SERVER_USER, SERVER_ACCOUNT
 
 warnings.filterwarnings('ignore')
 
